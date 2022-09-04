@@ -17,12 +17,12 @@
             <div class="">
 
                 <h2>Search for a City</h2>
-                <div class="mb-3">
+                <form id="city-search" class="mb-3">
                     <input type="text" class="form-control">
-                    <button class="btn btn-outline-secondary" type="button" id="button-addon2">Search</button>
-                  </div>
+                    <button class="btn btn-outline-secondary" type="button" id="search-btn">Search</button>
+                </form>
                 <h4>Previously Searched</h4>
-                <ul class="list-group list-group-flush">
+                <ul id="city-list" class="list-group list-group-flush">
                     <li class="list-group-item">populated city</li>
                     <li class="list-group-item">populated city</li>
                 </ul>
@@ -30,14 +30,13 @@
 
 
             <!-- populated city / 5-day forecast -->
-            <div class="city">
-                <div>
+            <div class="city-div">
+                <div id="city-weather">
                     (populated city)
                 </div>
-                <div>
+                <div id="five-day">
                     <h2>5-Day Forecast</h2>
                     cards?
-    
                 </div>
             </div>
             </div>
