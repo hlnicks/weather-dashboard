@@ -1,13 +1,12 @@
 // OpenWeather One Call: https://openweathermap.org/api/one-call-api
 // My key: bdc6688919e0cedd96fb90fbd910317a
 
-// IDs:
-// #city-search
-// #city-list
-// #search-btn
-// #city-weather
-// #five-day
-
+var userForm = document.querySelector("#city-form");
+var userInput = document.querySelector("#city-name");
+var searchBtn = document.querySelector("#search-btn");
+var listCities = document.querySelector("#city-list");
+var currentWeather = document.querySelector("#city-weather");
+var futureForecast = document.querySelector("#five-day");
 
 // functions needed:
 
