@@ -6,7 +6,7 @@ var userInput = document.querySelector("#city-name");
 var searchBtn = document.querySelector("#search-btn");
 var listCities = document.querySelector("#city-list");
 var currentWeather = document.querySelector("#city-weather");
-var futureForecast = document.querySelector("#five-day");
+// var futureForecast = document.querySelector("#five-day");
 
 // handles user input
 var formHandler = function(event) {
@@ -52,9 +52,10 @@ var latLonCity = function(lat, lon, city) {
 };
 
 // renders weather
+// do i need to save icons??? will need to look into
 var displayWeather = function(icon, city, temp, windSpeed, humidity, uvi) {
     currentWeather.innerHTML = "";
-    searchCity = document.getElementById(city);
+    searchedCity = document.getElementById(city);
     if (!searchCity) {
         saveCity(city);
     };
@@ -94,6 +95,6 @@ var saveCity = function (city) {
 // loadCities();
 
 // click event
-$("body").on("click", ".search-btn", function() {
+$("body").on("click", ".newCity", function() {
     fetchWeather();
 });
