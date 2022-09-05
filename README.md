@@ -13,6 +13,9 @@
 - [Github Repository](https://github.com/hlnicks/weather-dashboard)
 - [Github Page]()
 
+## Credits
+- [Background Image](https://www.freepik.com/free-vector/paper-style-3d-clouds-background-blue-sky_26443457.htm#query=weather%20background&position=18&from_view=keyword)
+
 <!-- GIVEN a weather dashboard with form inputs
 WHEN I search for a city
 THEN I am presented with current and future conditions for that city and that city is added to the search history

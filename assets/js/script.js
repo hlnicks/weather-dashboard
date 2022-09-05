@@ -83,20 +83,17 @@ var saveCity = function (city) {
 };
 
 // loads cities from localStorage
-var loadCities = function() {
-    listCities.innerHTML = "";
-    var searchedCities = JSON.parse(localStorage.getItem("cityArray")) || [];
-    for (var i = 0; i < searchedCities.length; i++) {
-        fetchWeather(searchedCities[i])
-    };
-};
+// var loadCities = function() {
+//     listCities.innerHTML = "";
+//     var searchedCities = JSON.parse(localStorage.getItem("cityArray")) || [];
+//     for (var i = 0; i < searchedCities.length; i++) {
+//         fetchWeather(searchedCities[i])
+//     };
+// };
 
-loadCities();
+// loadCities();
 
 // click event
 $("body").on("click", ".search-btn", function() {
     fetchWeather();
 });
-
-
-
