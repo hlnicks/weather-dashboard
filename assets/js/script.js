@@ -4,7 +4,6 @@ var searchBtn = document.querySelector("#search-btn");
 var listCities = document.querySelector("#city-list");
 var currentWeather = document.querySelector("#city-weather");
 var m = moment().format('L');
-// var futureForecast = document.querySelector("#five-day");
 
 // handles user input
 var formHandler = function (event) {
@@ -42,7 +41,8 @@ var fetchWeather = function(lat, lon, city) {
                 var windSpeed = data.current.wind_speed;
                 var humidity = data.current.humidity;
                 var uvi = data.current.uvi;
-                displayWeather(city, icon, temp, windSpeed, humidity, uvi);
+                var fiveDayForecast = data.daily;
+                displayWeather(city, icon, temp, windSpeed, humidity, uvi, fiveDayForecast);
             });
         }
     })
@@ -52,7 +52,7 @@ var fetchWeather = function(lat, lon, city) {
 // ^ ended up having to refer to a peer's code and using their key
 
 // renders weather
-var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi) {
+var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi, fiveDayForecast) {
     currentWeather.innerHTML = "";
     searchedCity = document.getElementById(city);
     if (!searchedCity){
@@ -64,41 +64,51 @@ var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi) {
         saveCity(city);
     };
 
-    // creates card to hold city/weather info
+    // creates card to hold city/weather day
     var createCard = document.createElement("div");
     createCard.setAttribute("class", "card");
     currentWeather.append(createCard);
 
-    // populates city name
+    // renders city name
     cityName = document.createElement("h2");
     cityName.innerHTML = city;
     createCard.append(cityName);
 
-    // populates current date
+    // renders current date
     date = document.createElement("h5");
     date.innerHTML = (m);
     createCard.append(date);
 
-    // populates weather icons
+    // renders weather icons
     // icons: https://openweathermap.org/weather-conditions#How-to-get-icon-URL
     // do i need to save icons??? will need to look into
 
-    var weatherDiv = document.createElement("div");
+    weatherDiv = document.createElement("div");
     createCard.append(weatherDiv);
 
+    // vv  will need to convert.. will come back to this
     var dataArray = ["Temperature: " + temp + "°f", "Wind Speed: " + windSpeed + "mph", "Humidity: " + humidity + "%", "UV Index: " + uvi];
-    // will need to convert.. will come back to this
     for (var i =0; i < dataArray.length; i++) {
-        var weatherData = document.createElement("p");
+        weatherData = document.createElement("p");
         weatherData.innerHTML = dataArray[i];
         weatherDiv.append(weatherData);
     }
-};
+    // to do: figure out how to change colors based on UV index
 
-// renders 5-day forecast
-// var displayFuture = function() {};
-// i think i can include this in displayWeather...
-// will come back to this
+
+    // renders five day forecast
+    fiveDay = document.createElement("h2");
+    fiveDay.innerHTML = "5-Day Forecast";
+    currentWeather.append(fiveDay);
+
+    for (var i = 1; i < fiveDayForecast.length - 2; i++){
+
+        // creates div to hold 5 day forecast data
+        fiveDayDiv = document.createElement("div");
+        fiveDayDiv = document.createElement("class", "card");
+        currentWeather.append(fiveDayDiv);
+    }
+};
 
 // saves city input to localstorage
 var saveCity = function (city) {
