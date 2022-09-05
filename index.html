@@ -13,35 +13,33 @@
         <h1>Weather Dashboard</h1>
     </header>
     <main class="container d-flex justify-content-around">
-            <!-- search city / list of cities div -->
-            <div class="">
+        <div class="city-div">
+            <!-- city search -->
+            <h2>Search for a City</h2>
+            <form id="city-form" class="mb-3">
+                <input id="city-name" type="text" class="form-control">
+                <button id="search-btn" class="btn btn-outline-secondary" type="button">Search</button>
+            </form>
 
-                <h2>Search for a City</h2>
-                <form id="city-form" class="mb-3">
-                    <input id="city-name" type="text" class="form-control">
-                    <button id="search-btn" class="btn btn-outline-secondary" type="button">Search</button>
-                </form>
-                <h4>Previously Searched</h4>
-                <ul id="city-list" class="list-group list-group-flush">
-                    <li class="list-group-item">populated city</li>
-                    <li class="list-group-item">populated city</li>
-                </ul>
-            </div>
+            <!-- cities from localStorage -->
+            <h4>Previously Searched</h4>
+            <ul id="city-list" class="list-group list-group-flush">
+                <li class="list-group-item"><populated city></li>
+            </ul>
+        </div>
 
-
+        <div class="weather-div">
             <!-- populated city / 5-day forecast div -->
-            <div class="city-div">
-                <div id="city-weather">
-                    (populated city)
-                </div>
-                <div id="five-day">
-                    <h2>5-Day Forecast</h2>
-                    cards?
-                </div>
+            <div id="city-weather" class="row d-flex flex-md-column flex-lg-row justify-content-around">
+                (populated city)
             </div>
-            </div>
-
-
+            <!-- populated city / 5-day forecast div -->
+            <!-- <div id="five-day">
+                <h2>5-Day Forecast</h2>
+                cards?
+            </div> -->
+        </div>
     </main>
+    <script src="./assets/js/script.js"></script>
 </body>
 </html>
