@@ -26,6 +26,10 @@ main {
     /* border-radius: 0px; */
 }
 
+.link {
+    font-style: oblique;
+}
+
 .container {
     padding: 20px 12px;
 }
