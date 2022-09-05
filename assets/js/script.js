@@ -56,17 +56,17 @@ var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi) {
     currentWeather.innerHTML = "";
     searchedCity = document.getElementById(city);
     if (!searchedCity){
-        createCity = document.createElement("button");
-        createCity.setAttribute("class", "load-city list-group-item");
+        createCity = document.createElement("submit");
         createCity.setAttribute("id", city);
+        createCity.setAttribute("class", "load-city list-group-item");
         createCity.textContent = city;
-        listCities.appendChild(createCity);
+        listCities.append(createCity);
         saveCity(city);
     };
 
     // creates card to hold city/weather info
     var createCard = document.createElement("div");
-    createCard.setAttribute("class", "card col-12");
+    createCard.setAttribute("class", "card");
     currentWeather.append(createCard);
 
     // populates city name
@@ -76,12 +76,23 @@ var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi) {
 
     // populates current date
     date = document.createElement("h5");
-    date.innerHTML = " (" + m + ")" ;
+    date.innerHTML = (m);
     createCard.append(date);
 
     // populates weather icons
     // icons: https://openweathermap.org/weather-conditions#How-to-get-icon-URL
     // do i need to save icons??? will need to look into
+
+    var weatherDiv = document.createElement("div");
+    createCard.append(weatherDiv);
+
+    var dataArray = ["Temperature: " + temp + "°f", "Wind Speed: " + windSpeed + "mph", "Humidity: " + humidity + "%", "UV Index: " + uvi];
+    // will need to convert.. will come back to this
+    for (var i =0; i < dataArray.length; i++) {
+        var weatherData = document.createElement("p");
+        weatherData.innerHTML = dataArray[i];
+        weatherDiv.append(weatherData);
+    }
 };
 
 // renders 5-day forecast
