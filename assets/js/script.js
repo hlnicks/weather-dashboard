@@ -3,7 +3,7 @@ var userInput = document.querySelector("#city-name");
 var searchBtn = document.querySelector("#search-btn");
 var listCities = document.querySelector("#city-list");
 var currentWeather = document.querySelector("#city-weather");
-var m = moment().format('L');
+var m = moment().format("dddd", "LL");
 
 // handles user input
 var formHandler = function (event) {
@@ -36,6 +36,7 @@ var fetchWeather = function(lat, lon, city) {
     fetch(weatherApi).then(function (response) {
         if (response.ok) {
             response.json().then(function (data) {
+                // variables for current weather data
                 var icon = data.current.weather.icon;
                 var temp = data.current.temp;
                 var windSpeed = data.current.wind_speed;
@@ -104,15 +105,31 @@ var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi, fiveD
     for (var i = 1; i < fiveDayForecast.length - 2; i++){
 
         // creates div to hold 5 day forecast data
-        fiveDayDiv = document.createElement("div");
-        fiveDayDiv = document.createElement("class", "card");
+        var fiveDayDiv = document.createElement("div");
+        fiveDayDiv.setAttribute("class", "card");
         currentWeather.append(fiveDayDiv);
         forecastDate = document.createElement("h5");
 
-        // populates upcoming dates
-        futureDate = moment().add([i], "d").format('L');
+        // renders upcoming dates
+        var futureDate = moment().add([i], "d").format('dddd, LL');
         forecastDate.textContent = futureDate;
         fiveDayDiv.append(forecastDate);
+
+        // renders upcoming forecasts
+        var futureWeather = document.createElement("div");
+        fiveDayDiv.append(futureWeather);
+
+        // variables for upcoming forecast data
+        var futureTemp = fiveDayForecast[i].temp.day;   // will need to convert
+        var futureWindSpeed = fiveDayForecast[i].wind_speed;
+        var futureHumidity = fiveDayForecast[i].humidity;
+        var futureUvi = fiveDayForecast[i].humidity;
+        var futureArray = ["Temperature: " + futureTemp + "°F", "Wind Speed: " + futureWindSpeed + "mph", "Humidity: " + futureHumidity + "%", "UV Index: " + futureUvi];
+        for (var j = 0; j < futureArray.length; j++) {
+            var upcomingData = document.createElement("p");
+            upcomingData.innerHTML = futureArray[j];
+            futureWeather.append(upcomingData);
+        }
     }
 };
 
