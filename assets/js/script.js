@@ -3,7 +3,7 @@ var userInput = document.querySelector("#city-name");
 var searchBtn = document.querySelector("#search-btn");
 var listCities = document.querySelector("#city-list");
 var currentWeather = document.querySelector("#city-weather");
-var m = moment().format("dddd", "LL");
+var m = moment().format("dddd, LL");
 
 // handles user input
 var formHandler = function (event) {
@@ -33,12 +33,13 @@ var fetchCity = function (city) {
 // uses latitude/longitude to get data from city
 var fetchWeather = function(lat, lon, city) {
     var weatherApi = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=eb850d2c4486fceb7521b3ec8f51fc59";
-    fetch(weatherApi).then(function (response) {
+    fetch(weatherApi).then(function(response) {
         if (response.ok) {
-            response.json().then(function (data) {
+            response.json().then(function(data) {
                 // variables for current weather data
                 var icon = data.current.weather.icon;
                 var temp = data.current.temp;
+                var temp = Math.floor((parseInt(temp) - 273.15) * (9 / 5) + 32);
                 var windSpeed = data.current.wind_speed;
                 var humidity = data.current.humidity;
                 var uvi = data.current.uvi;
@@ -55,40 +56,43 @@ var fetchWeather = function(lat, lon, city) {
 // renders weather
 var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi, fiveDayForecast) {
     currentWeather.innerHTML = "";
-    searchedCity = document.getElementById(city);
+    var searchedCity = document.getElementById(city);
     if (!searchedCity){
-        createCity = document.createElement("submit");
+        var createCity = document.createElement("submit");
         createCity.setAttribute("id", city);
-        createCity.setAttribute("class", "load-city list-group-item");
+        createCity.setAttribute("class", "list-group-item");
         createCity.textContent = city;
         listCities.append(createCity);
         saveCity(city);
     };
 
-    // creates card to hold city/weather day
+    // creates card to hold city/weather info
     var createCard = document.createElement("div");
     createCard.setAttribute("class", "card");
     currentWeather.append(createCard);
 
     // renders city name
-    cityName = document.createElement("h2");
+    var cityName = document.createElement("h2");
     cityName.innerHTML = city;
     createCard.append(cityName);
 
     // renders current date
-    date = document.createElement("h5");
+    var date = document.createElement("h5");
     date.innerHTML = (m);
     createCard.append(date);
 
-    // renders weather icons
+    // renders weather icon
     // icons: https://openweathermap.org/weather-conditions#How-to-get-icon-URL
-    // do i need to save icons??? will need to look into
+    // var iconImg = document.createElement("p");
+    // iconImg.innerHTML = "";
+    // createCard.append(iconImg);
+    // "<img src='http://openweathermap.org/img/wn/"+icon+".png'>"
 
     weatherDiv = document.createElement("div");
     createCard.append(weatherDiv);
 
-    // vv  will need to convert.. will come back to this
-    var dataArray = ["Temperature: " + temp + "°f", "Wind Speed: " + windSpeed + "mph", "Humidity: " + humidity + "%", "UV Index: " + uvi];
+
+    var dataArray = ["Temperature: " + temp + "°F", "Wind Speed: " + windSpeed + "mph", "Humidity: " + humidity + "%", "UV Index: " + uvi];
     for (var i =0; i < dataArray.length; i++) {
         weatherData = document.createElement("p");
         weatherData.innerHTML = dataArray[i];
@@ -115,12 +119,16 @@ var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi, fiveD
         forecastDate.textContent = futureDate;
         fiveDayDiv.append(forecastDate);
 
+        // renders upcoming weather icon
+        // var futureIcon = fiveDayForcast[i].weather[0].icon;
+
         // renders upcoming forecasts
         var futureWeather = document.createElement("div");
         fiveDayDiv.append(futureWeather);
 
         // variables for upcoming forecast data
-        var futureTemp = fiveDayForecast[i].temp.day;   // will need to convert
+        var futureTemp = fiveDayForecast[i].temp.day;
+        var futureTemp = Math.floor((parseInt(futureTemp) - 273.15) * (9 / 5) + 32);
         var futureWindSpeed = fiveDayForecast[i].wind_speed;
         var futureHumidity = fiveDayForecast[i].humidity;
         var futureUvi = fiveDayForecast[i].humidity;
