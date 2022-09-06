@@ -107,6 +107,12 @@ var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi, fiveD
         fiveDayDiv = document.createElement("div");
         fiveDayDiv = document.createElement("class", "card");
         currentWeather.append(fiveDayDiv);
+        forecastDate = document.createElement("h5");
+
+        // populates upcoming dates
+        futureDate = moment().add([i], "d").format('L');
+        forecastDate.textContent = futureDate;
+        fiveDayDiv.append(forecastDate);
     }
 };
 
