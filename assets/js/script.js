@@ -37,9 +37,8 @@ var fetchWeather = function(lat, lon, city) {
         if (response.ok) {
             response.json().then(function(data) {
                 // variables for current weather data
-                var icon = data.current.weather.icon;
-                var temp = data.current.temp;
-                var temp = Math.floor((parseInt(temp) - 273.15) * (9 / 5) + 32);
+                var icon = data.current.weather[0].icon;
+                var temp = Math.floor((parseInt(data.current.temp) - 273.15) * (9 / 5) + 32);
                 var windSpeed = data.current.wind_speed;
                 var humidity = data.current.humidity;
                 var uvi = data.current.uvi;
@@ -60,7 +59,7 @@ var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi, fiveD
     if (!searchedCity){
         var createCity = document.createElement("submit");
         createCity.setAttribute("id", city);
-        createCity.setAttribute("class", "list-group-item");
+        createCity.setAttribute("class", "load-city list-group-item");
         createCity.textContent = city;
         listCities.append(createCity);
         saveCity(city);
@@ -82,18 +81,15 @@ var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi, fiveD
     createCard.append(date);
 
     // renders weather icon
-    // icons: https://openweathermap.org/weather-conditions#How-to-get-icon-URL
-    // var iconImg = document.createElement("p");
-    // iconImg.innerHTML = "";
-    // createCard.append(iconImg);
-    // "<img src='http://openweathermap.org/img/wn/"+icon+".png'>"
+    var iconImg = document.createElement("p");
+    iconImg.innerHTML = "<img src='http://openweathermap.org/img/wn/"+icon+"@2x.png'>"
+    createCard.append(iconImg);
 
-    weatherDiv = document.createElement("div");
+    var weatherDiv = document.createElement("div");
     createCard.append(weatherDiv);
 
-
     var dataArray = ["Temperature: " + temp + "°F", "Wind Speed: " + windSpeed + "mph", "Humidity: " + humidity + "%", "UV Index: " + uvi];
-    for (var i =0; i < dataArray.length; i++) {
+    for (var i = 0; i < dataArray.length; i++) {
         weatherData = document.createElement("p");
         weatherData.innerHTML = dataArray[i];
         weatherDiv.append(weatherData);
@@ -102,7 +98,7 @@ var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi, fiveD
 
 
     // renders five day forecast
-    fiveDay = document.createElement("h2");
+    var fiveDay = document.createElement("h2");
     fiveDay.innerHTML = "5-Day Forecast";
     currentWeather.append(fiveDay);
 
@@ -119,16 +115,18 @@ var displayWeather = function (city, icon, temp, windSpeed, humidity, uvi, fiveD
         forecastDate.textContent = futureDate;
         fiveDayDiv.append(forecastDate);
 
-        // renders upcoming weather icon
-        // var futureIcon = fiveDayForcast[i].weather[0].icon;
-
         // renders upcoming forecasts
         var futureWeather = document.createElement("div");
         fiveDayDiv.append(futureWeather);
 
+        // renders upcoming weather icon
+        var futureIcon = fiveDayForecast[i].weather[0].icon;
+        var fiveDayImg = document.createElement("img");
+        fiveDayImg.setAttribute("src", "http://openweathermap.org/img/wn/" + futureIcon + "@2x.png");
+        futureWeather.append(fiveDayImg);
+
         // variables for upcoming forecast data
-        var futureTemp = fiveDayForecast[i].temp.day;
-        var futureTemp = Math.floor((parseInt(futureTemp) - 273.15) * (9 / 5) + 32);
+        var futureTemp = Math.floor((parseInt(fiveDayForecast[i].temp.day) - 273.15) * (9 / 5) + 32);
         var futureWindSpeed = fiveDayForecast[i].wind_speed;
         var futureHumidity = fiveDayForecast[i].humidity;
         var futureUvi = fiveDayForecast[i].humidity;
