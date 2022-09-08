@@ -50,3 +50,7 @@ h2, h4 {
 .searched-div {
     padding-top: 30px;
 }
+
+#city-weather {
+    padding-left: 100px;
+}
